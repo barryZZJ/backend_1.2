@@ -1,0 +1,7 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": false,
+    "maven.view": "flat",
+    "java.compile.nullAnalysis.mode": "disabled"
+}
