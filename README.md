@@ -12,7 +12,9 @@
     - PATH添加"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64"、"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.16.27023\include"
     - `SET DISTUTILS_USE_SDK=1 & "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x64`
     - `pip install exclude/flash-attention-main`
-6. conda install chardet
-7. pip install exclude/ImageBind
+6. `conda install chardet`
+7. download `https://github.com/facebookresearch/ImageBind/blob/main/imagebind/bpe/bpe_simple_vocab_16e6.txt.gz` and put into `exclude\ImageBind\bpe`
+
+   then `cd exclude\ImageBind` and `pip install .`
 8. download 'https://huggingface.co/microsoft/Phi-3-vision-128k-instruct' and put into `src/models/microsoft/Phi-3-vision-128k-instruct`
 9. download 'https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth' and put into `.checkpoints/`
