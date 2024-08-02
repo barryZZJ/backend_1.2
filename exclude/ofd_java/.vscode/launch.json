@@ -9,7 +9,7 @@
             "name": "ofd",
             "request": "launch",
             "mainClass": "com.iie.Toolbox",
-            "args": "file -p ofdtest.ofd ofd 1 2 -o ofdtest_desensitized.ofd",
+            "args": "file -p ofdtest.ofd ofd 1 2 -o ofdtest_desensitized_out.ofd",
             "projectName": "im-modules"
         }
     ]
