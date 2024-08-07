@@ -38,7 +38,7 @@ def desensitize_real_time_audio():
 
     add_beep_to_stream(input_path, iformat, output_path, oformat, start, duration)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})
 
 @desensitize_bp.route('/desensitize/audio', methods=['POST'])
 def desensitize_audio():
@@ -59,7 +59,7 @@ def desensitize_audio():
 
     add_beep(input_path, iformat, output_path, oformat, start, duration)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})
 
 @desensitize_bp.route('/desensitize/csv', methods=['POST'])
 def desensitize_csv():
@@ -80,7 +80,7 @@ def desensitize_csv():
 
     csv_desensitize(input_path, k, QI_INDEX, SA_INDEX, output_path)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})
 
 @desensitize_bp.route('/desensitize/image', methods=['POST'])
 def desensitize_image():
@@ -102,7 +102,7 @@ def desensitize_image():
     region_gaussian_blurred_image = gaussian_blur_region(original_image, *region, radius)
     region_gaussian_blurred_image.save(output_path)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})
 
 @desensitize_bp.route('/desensitize/location', methods=['POST'])
 def desensitize_location():
@@ -135,7 +135,7 @@ def desensitize_ofd():
 
     ofd_desensitize(input_path, pages, output_path)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})
 
 @desensitize_bp.route('/desensitize/text', methods=['POST'])
 def desensitize_text():
@@ -171,4 +171,4 @@ def desensitize_video():
 
     pixelate_video_region(input_path, output_path, *region, block_size)
 
-    return redirect(url_for('download', filename=ofilename))
+    return jsonify({'result': url_for('download', filename=ofilename)})

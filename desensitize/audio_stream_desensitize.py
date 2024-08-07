@@ -2,16 +2,15 @@ from pydub import AudioSegment
 from pydub.generators import Sine
 
 
-def add_beep_to_stream(input_file, input_format, output_file, output_format, start_times_sec: list[float], durations_sec: list[float], beep_frequency=1000):
+def add_beep_to_stream(input_file, input_format, output_file, output_format, start_time_sec: float, duration_sec: float, beep_frequency=1000):
     audio = AudioSegment.from_file(input_file, format=input_format)
 
-    for start_time_sec, duration_sec in zip(start_times_sec, durations_sec):
-        beep = Sine(beep_frequency).to_audio_segment(duration=duration_sec * 1000)
+    beep = Sine(beep_frequency).to_audio_segment(duration=duration_sec * 1000)
 
-        start_time_ms = int(start_time_sec * 1000)
-        end_time_ms = int((start_time_sec + duration_sec) * 1000)
+    start_time_ms = int(start_time_sec * 1000)
+    end_time_ms = int((start_time_sec + duration_sec) * 1000)
 
-        audio = audio[:start_time_ms] + beep + audio[end_time_ms:]
+    audio = audio[:start_time_ms] + beep + audio[end_time_ms:]
 
     audio.export(output_file, format=output_format)
 

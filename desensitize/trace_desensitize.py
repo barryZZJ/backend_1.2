@@ -1,6 +1,3 @@
-import math
-from math import asin, sqrt, pow, sin, cos
-
 from .utils import inMixzone
 from .location_desensitize import lap_coord_desensitize, Coord
 

@@ -65,4 +65,7 @@ def text_assess(ori_text, protect_text):
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    os.chdir('..')
+    print(text_assess("hello my name is john", "hello my name is allen"))
+    print(text_assess("hahahahahh", "prtected words"))

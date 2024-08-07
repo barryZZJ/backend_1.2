@@ -55,7 +55,7 @@ def convert_to_flac(wav_filename):
     temp_flac = tempfile.NamedTemporaryFile(delete=False, suffix=".flac")
 
     # 使用ffmpeg将wav转换成flac
-    subprocess.run(["ffmpeg", "-i", wav_filename, temp_flac.name])
+    subprocess.run(["ffmpeg", "-y", "-i", wav_filename, temp_flac.name])
 
     return temp_flac.name
 
@@ -69,6 +69,8 @@ def audio_stream_measure(wav_file_to_measure, keyword: str=''):
     result = model.transcribe(flac_file)
 
     text_to_measure = result["text"]
+    print(text_to_measure)
+    print(keyword)
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 

@@ -5,12 +5,14 @@ import whisper
 from const import MODEL
 
 # audio_to_measure = "./data/data_to_measure/audios/test.flac"
-audio_to_measure = "../src/audios/audiotest.wav"
+audio_to_measure = "../src/upload/test.flac"
+keyword = "America"
 
 def audio_measure(audio_to_measure, keyword: str=''):
     model = whisper.load_model("base")
     result = model.transcribe(audio_to_measure)
     print(result["text"])
+    print(keyword)
 
     text_to_measure = result["text"]
 
@@ -68,5 +70,5 @@ def audio_measure(audio_to_measure, keyword: str=''):
     return float(response)
 
 if __name__ == '__main__':
-    print(audio_measure(audio_to_measure, 'profile'))
+    print(audio_measure(audio_to_measure, keyword))
     # print(audio_measure(audio_to_measure, 'profiling'))

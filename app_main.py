@@ -1,6 +1,6 @@
 import os
 
-from flask import request, jsonify, send_from_directory
+from flask import request, jsonify, send_from_directory, send_file
 from werkzeug.utils import secure_filename
 
 from const import UPLOAD_FOLDER
@@ -51,7 +51,11 @@ def download():
     if not os.path.exists(file_path):
         return jsonify({'error': 'File not found'}), 404
 
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    range_header = request.headers.get('Range', None)
+    if range_header:
+        return send_file(file_path, conditional=True)
+    else:
+        return send_file(file_path)
 
 
 @app.route('/', methods=['GET'])

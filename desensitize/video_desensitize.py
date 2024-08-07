@@ -1,3 +1,6 @@
+import os
+from pathlib import Path
+
 import cv2
 
 
@@ -45,7 +48,8 @@ def pixelate_video_region(input_path, output_path, region_x, region_y, region_w,
     fps = cap.get(cv2.CAP_PROP_FPS)
 
     fourcc = cv2.VideoWriter.fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+    output_path_temp = Path(output_path).with_stem(Path(output_path).stem + '_temp')
+    out = cv2.VideoWriter(output_path_temp, fourcc, fps, (width, height))
 
     while True:
         ret, frame = cap.read()
@@ -57,6 +61,7 @@ def pixelate_video_region(input_path, output_path, region_x, region_y, region_w,
 
     cap.release()
     out.release()
+    os.system('ffmpeg -y -i %s -vcodec libx264 -acodec aac -strict -2 %s' % (output_path_temp, output_path))
     return output_path
 
 

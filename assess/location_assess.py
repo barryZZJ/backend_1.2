@@ -95,4 +95,6 @@ def location_assess(ori_position_number: list[float], protect_position_number: l
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    os.chdir('..')
+    print(location_assess([1.0, 2.0], [116.435842, 39.941626]))

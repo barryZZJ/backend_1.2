@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     # Choose parameters for each effect
     gaussian_blur_radius = 5
-    rectangle_range = (230, 240, 115, 130)  # Example rectangle range (x, y, width, height)
+    rectangle_range = [230, 240, 115, 130]  # Example rectangle range (x, y, width, height)
 
     # Apply each effect
     region_gaussian_blurred_image = gaussian_blur_region(original_image.copy(), *rectangle_range, gaussian_blur_radius)

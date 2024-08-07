@@ -10,4 +10,4 @@ def randomize_string(text: str, replace):
 
 
 if __name__ == '__main__':
-    print(randomize_string('hello my name is abc', 'abc'))
+    print(randomize_string('hello my name is barry', 'barry'))

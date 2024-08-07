@@ -14,7 +14,7 @@ def calculate_video_ssim(vid1_path, vid2_path):
     vid1_frames = skvideo.io.vread(vid1_path, as_grey=True)
     vid2_frames = skvideo.io.vread(vid2_path, as_grey=True)
     similarity_indexes = skvideo.measure.ssim(vid1_frames, vid2_frames)
-    similarity_index = np.average(similarity_indexes)
+    similarity_index = float(np.average(similarity_indexes))
     return similarity_index
 
 

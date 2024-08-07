@@ -32,12 +32,16 @@ def video_measure(video_to_measure):
 
     counter = 0
     result = 0
+    READ_FRAME_INTERVAL = 30
 
     while cap.isOpened():
         print(counter, '/', cap.get(cv2.CAP_PROP_FRAME_COUNT))
         # 读取一帧
         ret, frame = cap.read()
         if ret:
+            counter += 1
+            if (counter-1) % READ_FRAME_INTERVAL != 0:
+                continue
             # 将opencv的图像格式转换为PIL的图像格式
             image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
@@ -65,7 +69,6 @@ def video_measure(video_to_measure):
 
             # print("frame", counter, "measurement results -> ", response)
             result = max(result, float(response))
-            counter += 1
         else:
             break
 

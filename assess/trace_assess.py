@@ -100,11 +100,17 @@ def trace_assess(ori_trace_number: list[(float, float)], protect_trace_number: l
     max_value = max(ori_trace_number) * len(protect_trace_number)
     normlize_location_relation = location_relation / max_value
 
+    result = 1 - (cos_sim + cos_distance_number + normlize_location_relation) / 3
     print(
         "The privacy protection ability (0 for no protection, 0.5 and larger for best): ",
-        1 - (cos_sim + cos_distance_number + normlize_location_relation) / 3,
+        result,
     )
+    return float(np.average(result))
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    os.chdir('..')
+    tr1 = [(1.0, 2.0), (116.435842, 39.941626), (3.0, 4.0)]
+    tr2 = [(1.0, 2.0), (116.43794199999999, 39.932226), (3.0, 4.0)]
+    print(trace_assess(tr1, tr2))
