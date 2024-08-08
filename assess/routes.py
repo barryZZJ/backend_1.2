@@ -9,6 +9,7 @@ from .audio_assess import audio_assess
 from .csv_assess import csv_assess
 from .image_assess import image_assess
 from .location_assess import location_assess
+from .ofd_assess import ofd_assess
 from .table_assess import table_assess
 from .pdf_assess import pdf_assess
 from .text_assess import text_assess
@@ -62,6 +63,14 @@ def assess_table():
     filepath1 = os.path.join(UPLOAD_FOLDER, secure_filename(data['filename1']))
     filepath2 = os.path.join(UPLOAD_FOLDER, secure_filename(data['filename2']))
     result = table_assess(filepath1, filepath2)
+    return jsonify({'result': result})
+
+@assess_bp.route('/assess/ofd', methods=['POST'])
+def assess_ofd():
+    data = request.json
+    filepath1 = os.path.join(UPLOAD_FOLDER, secure_filename(data['filename1']))
+    filepath2 = os.path.join(UPLOAD_FOLDER, secure_filename(data['filename2']))
+    result = ofd_assess(filepath1, filepath2)
     return jsonify({'result': result})
 
 @assess_bp.route('/assess/pdf', methods=['POST'])

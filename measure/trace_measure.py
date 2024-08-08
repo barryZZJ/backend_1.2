@@ -1,6 +1,6 @@
 from const import MODEL
 from desensitize.location_desensitize import Coord
-from desensitize.utils import inMixzone
+from global_utils import inMixzone
 
 trace_privacy_component = "[(11.901378941584682  12.22942292176873  12.066038023121017  55.23030665591961  44.94763228076714  96.62325208596081  31.05192714969048  86.98415451179197  31.368460551036904  24.94897670685573)]"
 

@@ -18,3 +18,11 @@
    then `cd exclude\ImageBind` and `pip install .`
 8. download 'https://huggingface.co/microsoft/Phi-3-vision-128k-instruct' and put into `src/models/microsoft/Phi-3-vision-128k-instruct`
 9. download 'https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth' and put into `.checkpoints/`
+
+Docker user:
+1. Install WSL 2: `https://learn.microsoft.com/en-us/windows/wsl/install`
+2. Install Docker Desktop:
+   - Windows: https://www.docker.com/products/docker-desktop/
+   - Linux: https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps
+3. Install NVIDIA Container Toolkit (Note you need to install cuda on host machine): https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+4. run with docker: 

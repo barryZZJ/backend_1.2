@@ -19,3 +19,4 @@ librosa
 scikit-image
 scikit-video
 pandas
+PyMuPDF

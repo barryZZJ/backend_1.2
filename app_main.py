@@ -64,7 +64,8 @@ def status():
     return jsonify({'message': 'Connection successful'})
 
 if __name__ == '__main__':
-    load_models()
+    if os.getenv('LOADMODEL', '1') == '1':
+        load_models()
     PORT = 5000
     # debug 为 True 时，会自动加载两次模型
     app.run(debug=False, host='0.0.0.0', port=PORT)

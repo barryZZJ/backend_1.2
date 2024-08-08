@@ -1,8 +1,6 @@
 import hashlib
-import math
 import random
 import re
-from datetime import datetime
 
 
 def hashing_md5(s: str) -> str:

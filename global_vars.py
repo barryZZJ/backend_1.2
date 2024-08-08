@@ -24,7 +24,7 @@ def load_models():
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
         Global.load_assess_model(device)
         loaded.append('assess')
-    print(loaded)
+    print('models loaded:', loaded)
 
 class Global:
     _model_measure = None

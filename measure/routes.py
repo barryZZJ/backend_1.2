@@ -11,7 +11,8 @@ from .csv_measure import csv_measure
 from .image_measure import image_measure
 from .location_measure import location_measure
 from .number_measure import number_measure
-from .ofd_pdf_measure import pdf_measure
+from .ofd_measure import ofd_measure
+from .pdf_measure import pdf_measure
 from .text_measure import text_measure
 from .trace_measure import trace_measure
 from .video_measure import video_measure
@@ -70,6 +71,14 @@ def measure_number():
     data = request.json
     print(data)
     result = number_measure(data['num_to_measure'], data['num_private'])
+    return jsonify({'result': result})
+
+@measure_bp.route('/measure/ofd', methods=['POST'])
+def measure_ofd():
+    data = request.json
+    filename = secure_filename(data['filename'])
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    result = ofd_measure(filepath)
     return jsonify({'result': result})
 
 @measure_bp.route('/measure/pdf', methods=['POST'])

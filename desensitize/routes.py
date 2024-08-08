@@ -13,6 +13,8 @@ from .image_desensitize import gaussian_blur_region
 from .location_desensitize import lap_coord_desensitize
 from .number_desensitize import number_desensitize
 from .ofd_desensitize import ofd_desensitize
+from .pdf_desensitize import pdf_desensitize
+from .table_desensitize import table_desensitize
 from .text_desensitize import randomize_string
 from .trace_desensitize import trace_desensitize
 from .video_desensitize import pixelate_video_region
@@ -134,6 +136,42 @@ def desensitize_ofd():
         return jsonify({'error': 'Input file not found'}), 404
 
     ofd_desensitize(input_path, pages, output_path)
+
+    return jsonify({'result': url_for('download', filename=ofilename)})
+
+@desensitize_bp.route('/desensitize/pdf', methods=['POST'])
+def desensitize_pdf():
+    data = request.json
+    print(data)
+
+    ifilename = secure_filename(data['ifilename'])
+    ofilename = secure_filename(data['ofilename'])
+    pages = data['pages']
+
+    input_path = os.path.join(UPLOAD_FOLDER, ifilename)
+    output_path = os.path.join(UPLOAD_FOLDER, ofilename)
+
+    if not os.path.exists(input_path):
+        return jsonify({'error': 'Input file not found'}), 404
+
+    pdf_desensitize(input_path, pages, output_path)
+
+    return jsonify({'result': url_for('download', filename=ofilename)})
+
+@desensitize_bp.route('/desensitize/table', methods=['POST'])
+def desensitize_table():
+    data = request.json
+
+    ifilename = secure_filename(data['ifilename'])
+    ofilename = secure_filename(data['ofilename'])
+
+    input_path = os.path.join(UPLOAD_FOLDER, ifilename)
+    output_path = os.path.join(UPLOAD_FOLDER, ofilename)
+
+    if not os.path.exists(input_path):
+        return jsonify({'error': 'Input file not found'}), 404
+
+    table_desensitize(input_path, output_path)
 
     return jsonify({'result': url_for('download', filename=ofilename)})
 

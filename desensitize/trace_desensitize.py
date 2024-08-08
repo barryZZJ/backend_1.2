@@ -1,4 +1,4 @@
-from .utils import inMixzone
+from global_utils import inMixzone
 from .location_desensitize import lap_coord_desensitize, Coord
 
 def trace_desensitize(traces: list[Coord], zone_coords: list[Coord], eps=0.9, dist_thresh=1000) -> list[Coord]:

@@ -1,6 +1,6 @@
 from const import MODEL
 from desensitize.location_desensitize import Coord
-from desensitize.utils import inMixzone
+from global_utils import inMixzone
 
 position_privacy_component = "[(42.640089555202366, 67.35983164586906)]"
 
