@@ -1,9 +1,10 @@
 import os
 
-from flask import request, jsonify, send_from_directory, send_file
+from flask import request, jsonify, send_file
 from werkzeug.utils import secure_filename
 
 from const import UPLOAD_FOLDER
+from global_vars import load_models
 from measure.routes import measure_bp
 from desensitize.routes import desensitize_bp
 from assess.routes import assess_bp
@@ -63,4 +64,7 @@ def status():
     return jsonify({'message': 'Connection successful'})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.16.3.75')
+    load_models()
+    PORT = 5000
+    # debug 为 True 时，会自动加载两次模型
+    app.run(debug=False, host='0.0.0.0', port=PORT)

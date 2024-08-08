@@ -5,8 +5,9 @@ import torch
 import torch.nn.functional as F
 
 from imagebind import data
-from imagebind.models import imagebind_model
 from imagebind.models.imagebind_model import ModalityType
+
+from global_vars import Global
 
 
 def main():
@@ -34,9 +35,7 @@ def csv_assess(ori_csv_path, protect_csv_path):
     """The privacy protection ability (0 for no protection, 0.5 and larger for best)"""
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    model = imagebind_model.imagebind_huge(pretrained=True)
-    model.eval()
-    model.to(device)
+    model = Global.load_assess_model(device)
 
     with open(ori_csv_path, "r") as f:
         ori_csv = f.read()

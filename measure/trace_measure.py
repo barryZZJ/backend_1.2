@@ -9,20 +9,11 @@ trace_to_measure = "(11.901378941584682  12.22942292176873  12.066038023121017  
 def trace_measure(trace_to_measure: list[Coord], zone_coords: list[Coord], dist_thresh=1000) -> bool:
     return any(inMixzone(position_to_measure, zone_coords, dist_thresh) for position_to_measure in trace_to_measure)
 
-    from transformers import AutoModelForCausalLM
-    from transformers import AutoProcessor
+    from global_vars import Global
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     messages = [
         {
@@ -55,7 +46,7 @@ def trace_measure(trace_to_measure: list[Coord], zone_coords: list[Coord], dist_
     )[0]
 
     # print("measurement results -> ", response)
-    return 1.0 if 'yes' in response.lower() else 0.0
+    return 'yes' in response.lower()
 
 if __name__ == '__main__':
     zone1_x = 116.435842

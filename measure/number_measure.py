@@ -2,25 +2,16 @@ number_privacy_component = ["100", '1000']
 
 number_to_measure = "100"
 
-def number_measure(num_to_measure: list, num_private):
+def number_measure(num_to_measure: list, num_private) -> bool:
     return num_private in num_to_measure
 
-    from transformers import AutoModelForCausalLM
-    from transformers import AutoProcessor
-
+    from global_vars import Global
     from const import MODEL
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
+    model, processor = Global.load_measure_model(model_id)
 
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
 
     messages = [
         {
@@ -53,7 +44,7 @@ def number_measure(num_to_measure: list, num_private):
     )[0]
 
     print("measurement results -> ", response)
-    return 1.0 if 'yes' in response.lower() else 0.0
+    return 'yes' in response.lower()
 
 
 if __name__ == '__main__':

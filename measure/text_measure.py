@@ -1,22 +1,12 @@
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
-
 from const import MODEL
+from global_vars import Global
 
 text_to_measure = "I went to the park and saw a dog."
 
 def text_measure(text_to_measure, keyword: str=''):
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     if keyword:
         messages = [

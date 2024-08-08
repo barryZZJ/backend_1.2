@@ -1,25 +1,15 @@
 from PIL import Image
 import cv2
 
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
-
 from const import MODEL
+from global_vars import Global
 
 video_to_measure = "./data/data_to_measure/videos/text.avi"
 
 def video_measure(video_to_measure):
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     messages = [
         {

@@ -1,13 +1,10 @@
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
-import whisper
-
 import pyaudio
 import wave
 import tempfile
 import subprocess
 
 from const import MODEL
+from global_vars import Global
 
 # 配置音频录制参数
 FORMAT = pyaudio.paInt16  # 音频格式
@@ -65,7 +62,7 @@ def audio_stream_measure(wav_file_to_measure, keyword: str=''):
     '''输入文件路径'''
     flac_file = convert_to_flac(wav_file_to_measure)
 
-    model = whisper.load_model("base")
+    model = Global.load_whisper_model()
     result = model.transcribe(flac_file)
 
     text_to_measure = result["text"]
@@ -74,15 +71,7 @@ def audio_stream_measure(wav_file_to_measure, keyword: str=''):
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     if keyword:
         messages = [

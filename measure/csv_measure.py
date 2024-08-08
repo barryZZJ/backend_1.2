@@ -1,6 +1,4 @@
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
-
+from global_vars import Global
 from const import MODEL
 
 csv_to_measure = "./data/data_to_measure/csv/ori_csv.csv"
@@ -12,15 +10,7 @@ def csv_measure(csv_to_measure):
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     messages = [
         {
@@ -56,4 +46,9 @@ def csv_measure(csv_to_measure):
     return float(response)
 
 if __name__ == '__main__':
+    print(csv_measure(csv_to_measure))
+    print(csv_measure(csv_to_measure))
+    print(csv_measure(csv_to_measure))
+    print(csv_measure(csv_to_measure))
+    print(csv_measure(csv_to_measure))
     print(csv_measure(csv_to_measure))

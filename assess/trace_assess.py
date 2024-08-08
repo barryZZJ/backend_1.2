@@ -5,10 +5,11 @@ import torch
 import torch.nn.functional as F
 
 from imagebind import data
-from imagebind.models import imagebind_model
 from imagebind.models.imagebind_model import ModalityType
 
 import numpy as np
+
+from global_vars import Global
 
 
 def calculate_normalized_l1_distance(array1, array2, max_value):
@@ -56,9 +57,7 @@ def main():
 def trace_assess(ori_trace_number: list[(float, float)], protect_trace_number: list[(float, float)]):
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    model = imagebind_model.imagebind_huge(pretrained=True)
-    model.eval()
-    model.to(device)
+    model = Global.load_assess_model(device)
 
     # 数值相似性
     ori_trace_array = np.array(ori_trace_number).flatten()

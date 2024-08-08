@@ -1,22 +1,13 @@
 from PIL import Image
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
 
 from const import MODEL
+from global_vars import Global
 
 image_to_measure = "./data/data_to_measure/images/face.jpg"
 def image_measure(image_to_measure):
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention, to use flash attention, use _attn_implementation='flash_attention_2'
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     messages = [
         {

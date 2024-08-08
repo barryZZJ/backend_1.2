@@ -5,10 +5,11 @@ import torch
 import torch.nn.functional as F
 
 from imagebind import data
-from imagebind.models import imagebind_model
 from imagebind.models.imagebind_model import ModalityType
 
 import numpy as np
+
+from global_vars import Global
 
 
 def main():
@@ -51,9 +52,7 @@ def location_assess(ori_position_number: list[float], protect_position_number: l
     """
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    model = imagebind_model.imagebind_huge(pretrained=True)
-    model.eval()
-    model.to(device)
+    model = Global.load_assess_model(device)
 
     position_text_input = [' '.join(map(str, ori_position_number)), ' '.join(map(str, protect_position_number))]
 

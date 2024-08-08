@@ -5,8 +5,9 @@ import torch
 import torch.nn.functional as F
 
 from imagebind import data
-from imagebind.models import imagebind_model
 from imagebind.models.imagebind_model import ModalityType
+
+from global_vars import Global
 
 
 def main():
@@ -38,9 +39,7 @@ def main():
 def text_assess(ori_text, protect_text):
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    model = imagebind_model.imagebind_huge(pretrained=True)
-    model.eval()
-    model.to(device)
+    model = Global.load_assess_model(device)
 
     text_input = [ori_text, protect_text]
 

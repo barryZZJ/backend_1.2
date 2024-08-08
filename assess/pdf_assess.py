@@ -5,7 +5,6 @@ import torch
 import torch.nn.functional as F
 
 from imagebind import data
-from imagebind.models import imagebind_model
 from imagebind.models.imagebind_model import ModalityType
 
 from pdf2image import convert_from_path, convert_from_bytes
@@ -15,6 +14,8 @@ from pdf2image.exceptions import (
     PDFSyntaxError,
 )
 import tempfile
+
+from global_vars import Global
 
 
 def save_images_to_temp_files(image_list):
@@ -54,9 +55,7 @@ def pdf_assess(ori_pdf_path, protect_pdf_path):
     """
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    model = imagebind_model.imagebind_huge(pretrained=True)
-    model.eval()
-    model.to(device)
+    model = Global.load_assess_model(device)
 
     ori_ofd_content = convert_from_path(ori_pdf_path)
     protect_ofd_content = convert_from_path(protect_pdf_path)

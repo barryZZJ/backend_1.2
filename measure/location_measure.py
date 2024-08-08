@@ -10,20 +10,11 @@ position_to_measure = "(42.640089555202366, 67.35983164586906)"
 def location_measure(position_to_measure: Coord, zone_coords: list[Coord], dist_thresh: float=1000) -> float:
     return inMixzone(position_to_measure, zone_coords, dist_thresh)
 
-    from transformers import AutoModelForCausalLM
-    from transformers import AutoProcessor
+    from global_vars import Global
 
     model_id = f"{MODEL}/microsoft/Phi-3-vision-128k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        device_map="cuda",
-        trust_remote_code=True,
-        torch_dtype="auto",
-        _attn_implementation="eager",
-    )  # use _attn_implementation='eager' to disable flash attention
-
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model, processor = Global.load_measure_model(model_id)
 
     messages = [
         {
@@ -56,7 +47,7 @@ def location_measure(position_to_measure: Coord, zone_coords: list[Coord], dist_
     )[0]
 
     # print("measurement results -> ", response)
-    return 1.0 if 'yes' in response.lower() else 0.0
+    return 'yes' in response.lower()
 
 if __name__ == '__main__':
     zone1_x = 116.435842
