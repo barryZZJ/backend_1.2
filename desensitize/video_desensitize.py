@@ -3,6 +3,8 @@ from pathlib import Path
 
 import cv2
 
+from const import FFMPEG_BIN
+
 
 def pixelate_frame(frame, block_size: int = 5):
     height, width, _ = frame.shape
@@ -61,7 +63,7 @@ def pixelate_video_region(input_path, output_path, region_x, region_y, region_w,
 
     cap.release()
     out.release()
-    os.system('ffmpeg -y -i %s -vcodec libx264 -acodec aac -strict -2 %s' % (output_path_temp, output_path))
+    os.system('%s -y -i %s -vcodec libx264 -acodec aac -strict -2 %s' % (FFMPEG_BIN, output_path_temp, output_path))
     return output_path
 
 

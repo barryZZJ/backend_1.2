@@ -6,3 +6,5 @@ MODEL = os.path.join(SRC, 'models')
 
 UPLOAD_FOLDER = os.path.join(SRC, 'upload')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+FFMPEG_BIN = os.path.join(PROJ_ROOT, 'bin', 'ffmpeg')

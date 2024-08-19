@@ -3,7 +3,7 @@ import wave
 import tempfile
 import subprocess
 
-from const import MODEL
+from const import MODEL, FFMPEG_BIN
 from global_vars import Global
 
 # 配置音频录制参数
@@ -52,7 +52,7 @@ def convert_to_flac(wav_filename):
     temp_flac = tempfile.NamedTemporaryFile(delete=False, suffix=".flac")
 
     # 使用ffmpeg将wav转换成flac
-    subprocess.run(["ffmpeg", "-y", "-i", wav_filename, temp_flac.name])
+    subprocess.run([FFMPEG_BIN, "-y", "-i", wav_filename, temp_flac.name])
 
     return temp_flac.name
 
